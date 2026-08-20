@@ -1,9 +1,9 @@
 ![capa](git_assets/git_hub_capa_enem.png)
 
-# O impacto do gênero na inclusão nas áreas STEM: uma análise com Machine Learning sobre dados do Enem
+# O impacto do gênero na inclusão STEM: Machine Learning em microdados do Enem
 Machine Learning aplicado a +23 milhões de registros do Enem (2018-2023) para identificar quais fatores influenciam na entrada de mulheres nas áreas de exatas: e o quanto o gênero, isoladamente, ainda pesa nessa equação.
 
-A análise extensiva de dados públicos do Enem envolveu a construção de um pipeline de tratamento de dados em larga escala, testando 4 modelos preditivos. Traduzi os resultados em insights acionáveis via SHAP, revelando que gênero é o **2º fator mais relevante na inclusão STEM — atrás só da renda familiar —** um achado com aplicação direta para políticas de incentivo e programas de diversidade.
+A análise extensiva de dados públicos do Enem, consistindo em mais de 11GB de dados descompactados, envolveu a construção de um pipeline de tratamento de dados em larga escala, testando 4 modelos preditivos. Traduzi os resultados em insights acionáveis via SHAP, revelando que gênero é o **2º fator mais relevante na inclusão STEM — atrás só da renda familiar —** um achado com aplicação direta para políticas de incentivo e programas de diversidade.
 
 ## O que esse projeto responde
 
@@ -32,11 +32,13 @@ A presença feminina em cursos de Ciências, Tecnologia, Engenharia e Matemátic
 </ol>
 
 ## Resultados principais
-| Modelo escolhido | CatBoost |
-|---|---|
-| Cenário mais rigoroso testado (T3: nota acima da mediana em Matemática **e** Ciências da Natureza) | ROC-AUC de 0,7707 |
-| Fatores mais relevantes (nessa ordem) | Renda familiar → Gênero → Escolaridade da mãe → Escolaridade do pai |
-| Maior disparidade de gênero observada | Matemática, com gap crescente entre 2018 (43,2 pontos) e 2023 (58,1 pontos) |
+| Métrica / Insight | Resultado (Modelo: CatBoost) |
+| :--- | :--- |
+| **Performance (ROC-AUC)** | **0,7707** (No cenário mais rigoroso de classificação) |
+| **Fatores de maior impacto** | 1º Renda Familiar <br> 2º Gênero <br> 3º Escolaridade da mãe <br> 4º Escolaridade do pai |
+| **Restabelecimento dos padrões de inequalidade de gênero** | O gênero tem o maior impacto em 2020 e depois retorna aos padrões anteriores à pandemia |
+
+---
 
 
 ## Stack técnica
@@ -66,7 +68,7 @@ pip install -r requirements.txt
 
 Os microdados do Enem podem ser baixados diretamente no [portal do INEP](https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados/enem) e devem ser colocados em `data/raw/`. Os notebooks em `notebooks/` seguem a ordem: processamento → modelagem → interpretabilidade (SHAP).
 
-## Limitações
+## Limitações do modelo e passos futuros
 
 Os modelos utilizados permitem identificar correlação, não causalidade — ou seja, apontam quais fatores se associam a um perfil STEM, mas não isolam definitivamente por que isso acontece. Para uma leitura causal mais robusta, seria necessário incorporar dados adicionais sobre a trajetória escolar e vivência das alunas ao longo do Ensino Médio.
 
