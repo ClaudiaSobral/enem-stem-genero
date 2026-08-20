@@ -3,7 +3,7 @@
 # O impacto do gênero na inclusão nas áreas STEM: uma análise com Machine Learning sobre dados do Enem
 Machine Learning aplicado a +23 milhões de registros do Enem (2018-2023) para identificar quais fatores influenciam na entrada de mulheres nas áreas de exatas: e o quanto o gênero, isoladamente, ainda pesa nessa equação.
 
-A análise de +23 milhões de públicos do Enem envolveu a construção de um pipeline de tratamento de dados em larga escala, testando 4 modelos preditivos. Traduzi os resultados em insights acionáveis via SHAP, revelando que gênero é o 2º fator mais relevante na inclusão STEM — atrás só da renda familiar — um achado com aplicação direta para políticas de incentivo e programas de diversidade.
+A análise extensiva de dados públicos do Enem envolveu a construção de um pipeline de tratamento de dados em larga escala, testando 4 modelos preditivos. Traduzi os resultados em insights acionáveis via SHAP, revelando que gênero é o **2º fator mais relevante na inclusão STEM — atrás só da renda familiar —** um achado com aplicação direta para políticas de incentivo e programas de diversidade.
 
 ## O que esse projeto responde
 
