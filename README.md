@@ -1,7 +1,7 @@
 ![capa](git_assets/git_hub_capa_enem.png)
 
 # O impacto do gênero na inclusão STEM: Machine Learning em microdados do Enem
-Machine Learning aplicado a +23 milhões de registros do Enem (2018-2023) para identificar quais fatores influenciam na entrada de mulheres nas áreas de exatas: e o quanto o gênero, isoladamente, ainda pesa nessa equação.
+<h3>Aplicação de Machine Learning a +23 milhões de registros do Enem (2018-2023) para identificar quais fatores influenciam na entrada de mulheres nas áreas de exatas: e o quanto o gênero, isoladamente, ainda pesa nessa equação.</h3>
 
 A análise extensiva de dados públicos do Enem, consistindo em mais de 11GB de dados descompactados, envolveu a construção de um pipeline de tratamento de dados em larga escala, testando 4 modelos preditivos. Traduzi os resultados em insights acionáveis via SHAP, revelando que gênero é o **2º fator mais relevante na inclusão STEM — atrás só da renda familiar —** um achado com aplicação direta para políticas de incentivo e programas de diversidade.
 
