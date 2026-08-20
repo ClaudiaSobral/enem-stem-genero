@@ -14,6 +14,10 @@ A presença feminina em cursos de Ciências, Tecnologia, Engenharia e Matemátic
 ![Direção do impacto de gênero no Perfil STEM](git_assets/impactogenero.png)
 *Impacto médio (SHAP) do gênero na probabilidade de perfil STEM, por ano. Barras à esquerda = mulheres reduzem a chance; à direita = homens aumentam a chance.*
 
+![Evolução do impacto das variáveis no Perfil STEM](git_assets/evolucaoimpactovariaveis.png)
+
+A renda familiar e a escolaridade dos pais são os outros dois fatores que mais influenciam a entrada de candidatos no Ensino Superior.
+
 > Esse tipo de achado tem aplicação direta para quem desenha políticas públicas de incentivo, programas de bolsas de estudo ou iniciativas de diversidade em tecnologia — o modelo não só confirma a disparidade, como aponta quais outras variáveis pesam junto (renda familiar, escolaridade dos pais), o que ajuda a priorizar onde intervir.
 
 ## Como cheguei lá
