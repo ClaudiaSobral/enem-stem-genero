@@ -57,8 +57,8 @@ A renda familiar e a escolaridade dos pais são os outros dois fatores que mais 
 ## Como rodar
 
 ```bash
-git clone https://github.com/ClaudiaSobral/enem-genero-stem-ml.git
-cd enem-genero-stem-ml
+git clone https://github.com/ClaudiaSobral/enem-stem-genero.git
+cd enem-stem-genero
 pip install -r requirements.txt
 ```
 
