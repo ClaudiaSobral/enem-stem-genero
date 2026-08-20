@@ -74,7 +74,7 @@ Os modelos utilizados permitem identificar correlação, não causalidade — ou
 
 ## Aprofundamento
 
-Este projeto foi desenvolvido como Trabalho de Conclusão de Curso do MBA em Data Science e Analytics (USP/Esalq) sob orientação do professor Manoel Flavio Leal. O artigo completo, com revisão de literatura, discussão metodológica detalhada e referências, está disponível aqui.
+Este projeto foi desenvolvido como Trabalho de Conclusão de Curso do MBA em Data Science e Analytics (USP/Esalq) sob orientação do professor Manoel Flavio Leal. O artigo completo, com revisão de literatura, discussão metodológica detalhada e referências, está disponível [aqui](texto/TCC - Machine Learning para avaliação de impacto de gênero em STEM.pdf)
 
 ## Sobre mim
 
