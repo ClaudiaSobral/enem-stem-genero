@@ -1,4 +1,4 @@
-![capa](git_assets/teste.png)
+![capa](git_assets/git_hub_capa_enem.png)
 
 # O impacto do gênero na inclusão nas áreas STEM: uma análise com Machine Learning sobre dados do Enem
 Machine Learning aplicado a +23 milhões de registros do Enem (2018-2023) para identificar quais fatores influenciam na entrada de mulheres nas áreas de exatas: e o quanto o gênero, isoladamente, ainda pesa nessa equação.
