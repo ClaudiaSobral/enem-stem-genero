@@ -50,10 +50,10 @@ A presença feminina em cursos de Ciências, Tecnologia, Engenharia e Matemátic
 ```
 ├── data/
 │   ├── raw/            # Microdados brutos do INEP (não versionados aqui por tamanho)
-│   └── processed/       # Dados tratados em formato Parquet
-├── notebooks/            # Notebooks de processamento, modelagem e análise
-├── imgs/                 # Gráficos gerados pelo projeto
-├── texto/                 # Documentação e artigo acadêmico completo
+│   └── processed/      # Dados tratados em formato Parquet
+├── notebooks/          # Notebooks de processamento, modelagem e análise
+├── imgs/               # Gráficos gerados pelo projeto
+├── texto/              # Documentação e artigo acadêmico completo
 ├── requirements.txt
 └── README.md
 ```
