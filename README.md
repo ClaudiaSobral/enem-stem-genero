@@ -3,30 +3,32 @@
 # O impacto do gênero na inclusão nas áreas STEM: uma análise com Machine Learning sobre dados do Enem
 Machine Learning aplicado a +23 milhões de registros do Enem (2018-2023) para identificar quais fatores influenciam na entrada de mulheres nas áreas de exatas: e o quanto o gênero, isoladamente, ainda pesa nessa equação.
 
+A análise de +23 milhões de públicos do Enem envolveu a construção de um pipeline de tratamento de dados em larga escala, testando 4 modelos preditivos. Traduzi os resultados em insights acionáveis via SHAP, revelando que gênero é o 2º fator mais relevante na inclusão STEM — atrás só da renda familiar — um achado com aplicação direta para políticas de incentivo e programas de diversidade.
+
 ## O que esse projeto responde
 
 A presença feminina em cursos de Ciências, Tecnologia, Engenharia e Matemática (STEM) segue desproporcional à masculina, mesmo com a paridade de acesso ao ensino superior já alcançada globalmente. Este projeto usa os microdados públicos do Enem para investigar, com evidência estatística, **o quanto o gênero é um fator determinante nesse desequilíbrio — mesmo quando outras variáveis socioeconômicas são levadas em conta.**
 
 ## O principal achado
 
-**O gênero feminino segue sendo o 2º fator mais relevante para reduzir a probabilidade de um perfil STEM — atrás apenas da renda familiar**. Esse efeito se intensificou visivelmente em 2020, no início da pandemia de Covid-19.
+**O gênero feminino segue sendo o 2º fator mais relevante para reduzir a probabilidade de um perfil STEM — atrás apenas da renda familiar**. Esse efeito se intensificou visivelmente em 2020, no início da pandemia de Covid-19. </br> A renda familiar e a escolaridade dos pais são os outros dois fatores que mais influenciam a entrada de candidatos no Ensino Superior.
 
 ![Direção do impacto de gênero no Perfil STEM](git_assets/impactogenero.png)
 *Impacto médio (SHAP) do gênero na probabilidade de perfil STEM, por ano. Barras à esquerda = mulheres reduzem a chance; à direita = homens aumentam a chance.*
 
 ![Evolução do impacto das variáveis no Perfil STEM](git_assets/evolucaoimpactovariaveis.png)
-
-A renda familiar e a escolaridade dos pais são os outros dois fatores que mais influenciam a entrada de candidatos no Ensino Superior.
+*Evolução do impacto das variáveis ao longo dos anos analisados (2018-2023). Destaque para o aumento do impacto do gênero em 2020, ano em que eclode a pandemia de Covid-19*
+</br>
 
 > Esse tipo de achado tem aplicação direta para quem desenha políticas públicas de incentivo, programas de bolsas de estudo ou iniciativas de diversidade em tecnologia — o modelo não só confirma a disparidade, como aponta quais outras variáveis pesam junto (renda familiar, escolaridade dos pais), o que ajuda a priorizar onde intervir.
 
 ## Como cheguei lá
 <ol>
-<li> **Dados:** microdados oficiais do Enem (2018-2023), disponibilizados pelo INEP — datasets de até 2,47 GB por ano, totalizando milhões de registros de participantes.
-<li> **Pipeline de processamento em escala:** para viabilizar o processamento em uma máquina pessoal, os dados foram tratados em chunks, convertidos para o formato Parquet e tiveram os tipos numéricos otimizados (downcast), reduzindo drasticamente o uso de memória sem perda de informação relevante. </li>
-<li> **Modelagem preditiva:** comparação de 4 algoritmos ensemble (Random Forest, XGBoost, LightGBM, CatBoost) para classificar participantes com perfil STEM, usando notas de Matemática e Ciências da Natureza como proxy. </li>
-<li> **Otimização e validação:** tuning de hiperparâmetros com Optuna e avaliação por ROC-AUC e F1-Score, testando 4 cenários diferentes de rigor na definição de "perfil STEM".</li>
-<li> **Interpretabilidade:** uso do framework SHAP para abrir a "caixa-preta" do modelo e entender exatamente o peso de cada variável (gênero, renda, escolaridade dos pais, raça, região) na previsão — e como isso evoluiu ano a ano. </li>
+<li> <b>Dados:</b> microdados oficiais do Enem (2018-2023), disponibilizados pelo INEP — datasets de até 2,47 GB por ano, totalizando milhões de registros de participantes.
+<li> <b>Pipeline de processamento em escala:</b> para viabilizar o processamento em uma máquina pessoal, os dados foram tratados em chunks, convertidos para o formato Parquet e tiveram os tipos numéricos otimizados (downcast), reduzindo drasticamente o uso de memória sem perda de informação relevante. </li>
+<li> <b>Modelagem preditiva:</b> comparação de 4 algoritmos ensemble (Random Forest, XGBoost, LightGBM, CatBoost) para classificar participantes com perfil STEM, usando notas de Matemática e Ciências da Natureza como proxy. </li>
+<li> <b>Otimização e validação:</b> tuning de hiperparâmetros com Optuna e avaliação por ROC-AUC e F1-Score, testando 4 cenários diferentes de rigor na definição de "perfil STEM".</li>
+<li> <b>Interpretabilidade:</b> uso do framework SHAP para abrir a "caixa-preta" do modelo e entender exatamente o peso de cada variável (gênero, renda, escolaridade dos pais, raça, região) na previsão — e como isso evoluiu ano a ano. </li>
 </ol>
 
 ## Resultados principais
