@@ -89,6 +89,12 @@ Os notebooks foram modularizados para permitir o acréscimo de dados e a persona
 │   └── 03_GRAPHS.ipynb                     # Gráficos para interpretação
 ```
 
+### Resultado final da pipeline
+|                                                   | Tempo de processamento | Uso de memória    |
+|---------------------------------------------------|------------------------|-------------------|
+| Arquivos CSV de cada ano (2018-2023)              | 52,4s por arquivo      | 3,9GB por arquivo |
+| Tabela Parquet contendo todos os anos (2018-2023) | 9,9s                   | 0,6GB             | 
+
 ## Definição do target
 Por não dispor dos dados de entrada no Ensino Superior através desse dataset, foi necessário avaliar a inclusão em STEM da seguinte forma: um participante que tem perfil STEM costuma precisar de notas altas em Ciências da Natureza e Matemática. Portanto, os modelos foram treinados com *proxies* de perfil STEM para avaliar qual performava melhor. Perfil STEM foi classificado binariamente em tem perfil STEM (1) e não tem perfil STEM (0).
 
