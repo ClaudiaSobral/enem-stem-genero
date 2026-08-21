@@ -2,12 +2,15 @@
 
 # O impacto do gênero na inclusão STEM: análise de Machine Learning em +23M registros microdados do Enem (2018-2023)
 
-> Projeto de Análise e Ciência de Dados de ponta a ponta | 23M+ registros | +11GB de dados brutos | 4 modelos de ML | SHAP | Optuna
+> Projeto de Análise e Ciência de Dados de ponta a ponta | 23M+ registros | +11GB de dados brutos | Melhoria de 96,8% no tempo de processamento | 4 modelos de ML | SHAP | Optuna
 
 - O projeto envolveu utilizar dados públicos para avaliar o quanto gênero impacta na possibilidade de meninas e mulheres adentrarem a área de exatas.
 - A análise extensiva de dados públicos do Enem, consistindo em mais de 11GB de dados descompactados, envolveu a construção de um pipeline de ponta a ponta de tratamento de dados em larga escala, utilizando +23M de registros para testar 4 modelos preditivos. Através do processamento e limpeza dos dados em Parquet, o projeto tornou-se viável.
 - Construí uma pipeline eficiente em termos de computação para comparar 4 modelos *ensemble* com otimização de hiperparâmetros pela biblioteca Optuna e interpretação do modelo com SHAP.
 - Traduzi os resultados em insights acionáveis via SHAP, revelando que gênero é o **2º fator mais relevante na definição de um perfil para STEM — atrás só da renda familiar —** um achado com aplicação direta para políticas de incentivo e programas de diversidade.
+
+![principais features do projeto](imgs/git_hub_project_features.png)
+
 
 ## O que esse projeto responde
 
@@ -92,7 +95,7 @@ Os notebooks foram modularizados para permitir o acréscimo de dados e a persona
 ### Resultado final da pipeline
 |                                                   | Tempo de processamento | Uso de memória    |
 |---------------------------------------------------|------------------------|-------------------|
-| Arquivos CSV de cada ano (2018-2023) pré-processamento             | 52,4s por arquivo      | 3,9GB por arquivo |
+| Arquivos CSV de cada ano (2018-2023) pré-processamento             | 312s      | 3,9GB por arquivo |
 | Tabela Parquet contendo todos os anos (2018-2023) pós-processamento | 9,9s                   | 0,6GB             | 
 
 ## Definição do target
@@ -174,5 +177,5 @@ Este projeto foi desenvolvido como Trabalho de Conclusão de Curso do MBA em Dat
 
 ## Sobre mim
 
-Sou a Claudia Sobral, ex-animadora de TV migrando para Dados — trago dessa trajetória a capacidade de transformar números em histórias claras. [claudiasobral.com](https://claudiasobral.com/) · [LinkedIn](https://www.linkedin.com/in/claudia-sobral/)
+Sou a Claudia Sobral, ex-animadora de TV migrando para Dados — trago dessa trajetória a capacidade de transformar números em histórias claras com uma base visual criativa e sólida. [claudiasobral.com](https://claudiasobral.com/) · [LinkedIn](https://www.linkedin.com/in/claudia-sobral/)
 Também produzo conteúdo sobre Dados, migração de carreira e tecnologia! Você pode me acompanhar em [A Garota dos Dados](https://www.youtube.com/@garotadosdados)
