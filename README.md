@@ -53,6 +53,7 @@ A presença feminina em cursos de Ciências, Tecnologia, Engenharia e Matemátic
 ├── imgs/               # Gráficos gerados pelo projeto
 ├── texto/              # Documentação e artigo acadêmico completo
 ├── requirements.txt
+├── LICENSE.md
 └── README.md
 ```
 
