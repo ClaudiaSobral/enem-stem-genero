@@ -1,4 +1,4 @@
-![capa](git_assets/git_hub_capa_enem.png)
+![capa](imgs/git_hub_capa_enem.png)
 
 # O impacto do gênero na inclusão STEM: Machine Learning em microdados do Enem
 #### Aplicação de Machine Learning a +23 milhões de registros do Enem (2018-2023) para identificar quais fatores influenciam na entrada de mulheres nas áreas de exatas: e o quanto o gênero, isoladamente, ainda pesa nessa equação.
@@ -13,10 +13,10 @@ A presença feminina em cursos de Ciências, Tecnologia, Engenharia e Matemátic
 
 **O gênero feminino segue sendo o 2º fator mais relevante para reduzir a probabilidade de um perfil STEM — atrás apenas da renda familiar**. Esse efeito se intensificou visivelmente em 2020, no início da pandemia de Covid-19. </br> A renda familiar e a escolaridade dos pais são os outros dois fatores que mais influenciam a entrada de candidatos no Ensino Superior.
 
-![Direção do impacto de gênero no Perfil STEM](git_assets/impactogenero.png)
+![Direção do impacto de gênero no Perfil STEM](imgs/impactogenero.png)
 *Impacto médio (SHAP) do gênero na probabilidade de perfil STEM, por ano. Barras à esquerda = mulheres reduzem a chance; à direita = homens aumentam a chance.*
 
-![Evolução do impacto das variáveis no Perfil STEM](git_assets/evolucaoimpactovariaveis.png)
+![Evolução do impacto das variáveis no Perfil STEM](imgs/evolucaoimpactovariaveis.png)
 *Evolução do impacto das variáveis ao longo dos anos analisados (2018-2023). Destaque para o aumento do impacto do gênero em 2020, ano em que eclode a pandemia de Covid-19*
 </br>
 
