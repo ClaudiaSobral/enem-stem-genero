@@ -1,7 +1,7 @@
 ![capa](git_assets/git_hub_capa_enem.png)
 
 # O impacto do gênero na inclusão STEM: Machine Learning em microdados do Enem
-<h3>Aplicação de Machine Learning a +23 milhões de registros do Enem (2018-2023) para identificar quais fatores influenciam na entrada de mulheres nas áreas de exatas: e o quanto o gênero, isoladamente, ainda pesa nessa equação.</h3>
+#### Aplicação de Machine Learning a +23 milhões de registros do Enem (2018-2023) para identificar quais fatores influenciam na entrada de mulheres nas áreas de exatas: e o quanto o gênero, isoladamente, ainda pesa nessa equação.
 
 A análise extensiva de dados públicos do Enem, consistindo em mais de 11GB de dados descompactados, envolveu a construção de um pipeline de tratamento de dados em larga escala, testando 4 modelos preditivos. Traduzi os resultados em insights acionáveis via SHAP, revelando que gênero é o **2º fator mais relevante na inclusão STEM — atrás só da renda familiar —** um achado com aplicação direta para políticas de incentivo e programas de diversidade.
 
@@ -23,20 +23,18 @@ A presença feminina em cursos de Ciências, Tecnologia, Engenharia e Matemátic
 > Esse tipo de achado tem aplicação direta para quem desenha políticas públicas de incentivo, programas de bolsas de estudo ou iniciativas de diversidade em tecnologia — o modelo não só confirma a disparidade, como aponta quais outras variáveis pesam junto (renda familiar, escolaridade dos pais), o que ajuda a priorizar onde intervir.
 
 ## Como cheguei lá
-<ol>
-<li> <b>Dados:</b> microdados oficiais do Enem (2018-2023), disponibilizados pelo INEP — datasets de até 2,47 GB por ano, totalizando milhões de registros de participantes.
-<li> <b>Pipeline de processamento em escala:</b> para viabilizar o processamento em uma máquina pessoal, os dados foram tratados em chunks, convertidos para o formato Parquet e tiveram os tipos numéricos otimizados (downcast), reduzindo drasticamente o uso de memória sem perda de informação relevante. </li>
-<li> <b>Modelagem preditiva:</b> comparação de 4 algoritmos ensemble (Random Forest, XGBoost, LightGBM, CatBoost) para classificar participantes com perfil STEM, usando notas de Matemática e Ciências da Natureza como proxy. </li>
-<li> <b>Otimização e validação:</b> tuning de hiperparâmetros com Optuna e avaliação por ROC-AUC e F1-Score, testando 4 cenários diferentes de rigor na definição de "perfil STEM".</li>
-<li> <b>Interpretabilidade:</b> uso do framework SHAP para abrir a "caixa-preta" do modelo e entender exatamente o peso de cada variável (gênero, renda, escolaridade dos pais, raça, região) na previsão — e como isso evoluiu ano a ano. </li>
-</ol>
+1. Dados: microdados oficiais do Enem (2018-2023), disponibilizados pelo INEP — datasets de até 2,47 GB por ano, totalizando milhões de registros de participantes.
+2. Pipeline de processamento em escala: para viabilizar o processamento em uma máquina pessoal, os dados foram tratados em chunks, convertidos para o formato Parquet e tiveram os tipos numéricos otimizados (downcast), reduzindo drasticamente o uso de memória sem perda de informação relevante. 
+3. Modelagem preditiva: comparação de 4 algoritmos ensemble (Random Forest, XGBoost, LightGBM, CatBoost) para classificar participantes com perfil STEM, usando notas de Matemática e Ciências da Natureza como proxy. 
+4. Otimização e validação: tuning de hiperparâmetros com Optuna e avaliação por ROC-AUC e F1-Score, testando 4 cenários diferentes de rigor na definição de "perfil STEM".
+5. Interpretabilidade: uso do framework SHAP para abrir a "caixa-preta" do modelo e entender exatamente o peso de cada variável (gênero, renda, escolaridade dos pais, raça, região) na previsão — e como isso evoluiu ano a ano.
 
 ## Resultados principais
 | Métrica / Insight | Resultado (Modelo: CatBoost) |
 | :--- | :--- |
 | **Performance (ROC-AUC)** | **0,7707** (No cenário mais rigoroso de classificação) |
 | **Fatores de maior impacto** | 1º Renda Familiar <br> 2º Gênero <br> 3º Escolaridade da mãe <br> 4º Escolaridade do pai |
-| **Restabelecimento dos padrões de inequalidade de gênero** | O gênero tem o maior impacto em 2020 e depois retorna aos padrões anteriores à pandemia |
+| **Restabelecimento dos padrões de desigualdade de gênero** | O gênero tem o maior impacto em 2020 e depois retorna aos padrões anteriores à pandemia |
 
 ---
 
