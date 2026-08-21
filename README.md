@@ -2,6 +2,9 @@
 
 # O impacto do gênero na inclusão STEM: análise de Machine Learning em +23M registros microdados do Enem (2018-2023)
 
+
+## Resumo do projeto 
+
 > Projeto de Análise e Ciência de Dados de ponta a ponta | 23M+ registros | +11GB de dados brutos | Melhoria de 96,8% no tempo de processamento | 4 modelos de ML | SHAP | Optuna
 
 - O projeto envolveu utilizar dados públicos para avaliar o quanto gênero impacta na possibilidade de meninas e mulheres adentrarem a área de exatas.
@@ -23,13 +26,13 @@ Este projeto usa os microdados públicos do Enem para investigar, com evidência
 
 ## O principal achado
 
-**O gênero feminino segue sendo o 2º fator mais relevante para reduzir a probabilidade de um perfil STEM — atrás apenas da renda familiar — segundo a importância das variáveis em SHAP**. O pico da relevância do gênero se intensifica visivelmente em 2020, no início da pandemia de Covid-19, retornando gradualmente aos parâmetros anteriores à pandemia em 2023. A renda familiar e a escolaridade dos pais são os outros dois fatores que mais influenciam a probabilidade de um candidato se adequar a um perfil de exatas.
+**O gênero feminino segue sendo o 2º fator mais relevante para reduzir a probabilidade de um perfil STEM — atrás apenas da renda familiar — segundo a importância das variáveis em SHAP**. O pico da relevância do gênero se intensifica visivelmente em 2020, coincidindo com o início da pandemia de Covid-19, retornando gradualmente aos parâmetros anteriores à pandemia em 2023. A renda familiar e a escolaridade dos pais são os outros dois fatores que mais influenciam a probabilidade de um candidato se adequar a um perfil de exatas.
 
 ![Direção do impacto de gênero no Perfil STEM](imgs/impactogenero.png)
 *Impacto médio (SHAP) do gênero na probabilidade de perfil STEM, por ano. Barras à esquerda = mulheres reduzem a chance; à direita = homens aumentam a chance.*
 
 ![Evolução do impacto das variáveis no Perfil STEM](imgs/evolucaoimpactovariaveis.png)
-*Evolução do impacto das variáveis ao longo dos anos analisados (2018-2023). Destaque para o aumento do impacto do gênero em 2020, ano em que eclode a pandemia de Covid-19*
+*Evolução do impacto das variáveis ao longo dos anos analisados (2018-2023). Destaque para o aumento do impacto do gênero em 2020, coincidindo com o ano em que eclode a pandemia de Covid-19*
 </br>
 
 > Esse tipo de achado tem aplicação direta para quem desenha políticas públicas de incentivo, programas de bolsas de estudo ou iniciativas de diversidade em tecnologia — o modelo não só confirma a disparidade, como aponta quais outras variáveis pesam junto (renda familiar, escolaridade dos pais), o que ajuda a priorizar onde intervir.
@@ -43,23 +46,110 @@ Este projeto usa os microdados públicos do Enem para investigar, com evidência
 
 ## A pipeline de processamento
 
-Os dados butros do ENEM excediam 11GB quando descomprimidos, o que tornou improvável carregá-los em um único DataFrame.
+Os dados brutos do ENEM excediam 11GB quando descomprimidos, o que tornou improvável carregá-los em um único DataFrame.
 Para solucionar esse problema, eu implementei:
 
 ### Ingestão em chunks
 
-A ingestão em chunks permite o processamento dos dados em paralelo, o que otimiza a memória utilizada durante a ingestão. O trecho de código abaixo demonstra a inicialização do .csv em chunks de 100 mil registros, agregados na lista vazia `chunks_processados` através de uma função de processamento.
+A ingestão em chunks permite o processamento dos dados em blocos menores, o que otimiza a memória utilizada durante a ingestão. O trecho de código abaixo demonstra a inicialização do .csv em chunks de 100 mil registros, agregados na lista vazia `chunks_processados` através de uma função de processamento.
 
-```
-df = pd.read_csv(arquivo_csv, encoding='latin1', sep=";", on_bad_lines='skip', usecols=cols_de_interesse, chunksize=100000) #Acesso ao arquivo csv
+```python
+def processamento_dados(arquivo_csv, ano, pasta_destino):
 
-chunks_processados = [] #Cria lista vazia para armazenar os chunks processados
+    cols_de_interesse = [
+        'TP_FAIXA_ETARIA','TP_SEXO','TP_COR_RACA','TP_ST_CONCLUSAO',
+        'IN_TREINEIRO','TP_LOCALIZACAO_ESC','SG_UF_PROVA','TP_PRESENCA_CN',
+        'TP_PRESENCA_MT','NU_NOTA_CN','NU_NOTA_MT','Q001','Q002','Q006','Q025'
+    ]
+
+    print(f"Iniciando processamento {ano}")
+
+    df = pd.read_csv(
+        arquivo_csv,
+        encoding='latin1',
+        sep=";",
+        on_bad_lines='skip',
+        usecols=cols_de_interesse,
+        chunksize=100000
+    )
+
+    chunks_processados = []
+
+    for data in df:
+
+        # filtros
+        data = data[data['IN_TREINEIRO'] == 0]
+        data = data[(data['TP_PRESENCA_CN'] == 1) & (data['TP_PRESENCA_MT'] == 1)]
+        data = data[(data['NU_NOTA_CN'] != 0) & (data['NU_NOTA_MT'] != 0)]
+
+        # genero
+        data['IN_FEMININO'] = data['TP_SEXO'].map({'F':1,'M':0}).astype('int8')
+
+        # raça
+        raca_labels = {
+            1:'BRANCA',2:'PRETA',3:'PARDA',4:'AMARELA',5:'INDIGENA'
+        }
+
+        df_raca = pd.get_dummies(
+            data['TP_COR_RACA'].map(raca_labels),
+            prefix='RACA',
+            dtype='int8'
+        )
+
+        data = pd.concat([data, df_raca], axis=1)
+
+        # escolaridade pais
+        map_escolaridade = {
+            'A':0,'B':1,'C':2,'D':3,'E':4,'F':5,'G':6,'H':7
+        }
+
+        data['ESC_PAI'] = data['Q001'].map(map_escolaridade).astype('int8')
+        data['ESC_MAE'] = data['Q002'].map(map_escolaridade).astype('int8')
+
+        data = data[data['ESC_PAI'] != 7]
+        data = data[data['ESC_MAE'] != 7]
+
+        # internet
+        data['TEM_INTERNET'] = data['Q025'].map({'A':0,'B':1}).astype('int8')
+
+        cols_para_dropar = [
+            'TP_SEXO','TP_COR_RACA','TP_ST_CONCLUSAO',
+            'IN_TREINEIRO','SG_UF_PROVA','TP_PRESENCA_CN','TP_PRESENCA_MT',
+            'Q001','Q002','Q006','Q025'
+        ]
+
+        data.drop(columns=cols_para_dropar, inplace=True, errors='ignore')
+
+        chunks_processados.append(data)
+
+    df_final = pd.concat(chunks_processados, ignore_index=True)
+
+    df_final['ANO'] = ano
+
+    if not os.path.exists(pasta_destino):
+        os.makedirs(pasta_destino)
+
+    nome_arquivo = f"enem_{ano}_processado.parquet"
+
+    caminho_final = os.path.join(pasta_destino, nome_arquivo)
+
+    df_final.to_parquet(
+        caminho_final,
+        index=False,
+        engine='pyarrow',
+        compression='snappy'
+    )
+
+    print(f"Finalizado {ano}")
+    print(f"Linhas: {len(df_final)}")
+
+    return caminho_final
 ```
 
 ### Downcast de variáveis numéricas
 Utilizou-se frequentemente a estratégia de fazer o downcast de variáveis "int64" para "int8" no tratamento de variáveis numéricas para a redução de uso de memória, uma vez que as variáveis em questão eram previsíveis e "int8" seria suficiente para comportá-las. O trecho de código abaixo exemplifica a aplicação do downcast.
 
-```
+```python
 data['IN_FEMININO'] = data['TP_SEXO'].map({'F': 1, 'M': 0}).fillna(-1).astype('int8') # Mapeia gênero, transformando 'F' em 1 e 'M' em 0. Downcast para int8 e fillna para remoção posterior de nulo 
 ```
 
@@ -68,7 +158,7 @@ Formatos baseados em Apache Parquet são muito comuns na manipulação de big da
 
 Nesse outro trecho do código, os chunks são agregados para a criação de um dataset anual com os dados de interesse (para contribuir para a modularidade do projeto) e um dataset central que contém todos os anos iterados (2018-2023)
 
-```
+```python
     # Une todos os chunks em um DataFrame final
     df_final = pd.concat(chunks_processados, ignore_index=True)
     df_final['ANO'] = int(ano)
@@ -99,7 +189,9 @@ Os notebooks foram modularizados para permitir o acréscimo de dados e a persona
 | Tabela Parquet contendo todos os anos (2018-2023) pós-processamento | 9,9s                   | 0,6GB             | 
 
 ## Definição do target
-Por não dispor dos dados de entrada no Ensino Superior através desse dataset, foi necessário avaliar a inclusão em STEM da seguinte forma: um participante que tem perfil STEM costuma precisar de notas altas em Ciências da Natureza e Matemática. Portanto, os modelos foram treinados com *proxies* de perfil STEM para avaliar qual performava melhor. Perfil STEM foi classificado binariamente em tem perfil STEM (1) e não tem perfil STEM (0).
+Por não dispor dos dados de entrada no Ensino Superior através desse dataset, foi necessário avaliar a inclusão em STEM da seguinte forma: um participante que tem perfil STEM costuma precisar de notas altas em Ciências da Natureza e Matemática. Portanto, os modelos foram treinados com *proxies* de perfil STEM tendo como base a **performance em Matemática e Ciências da Natureza**.
+
+Perfil STEM foi classificado binariamente em tem perfil STEM (1) e não tem perfil STEM (0).
 
 - **T1** - Participantes no Perfil STEM seriam aqueles com nota em Matemática maior do que a mediana do ano referido.
 - **T2** - Participantes no Perfil STEM seriam aqueles com nota em Matemática OU Ciências da Natureza maior do que a mediana de cada matéria do ano referido.
@@ -119,7 +211,7 @@ Nesse cenário, performou melhor o modelo CatBoost com target T3, cenário que e
 
 ## Habilidades demonstradas
 
-- **Data Engeneering:** processamento em chunks, otimização de memória, transformação em Parquet;
+- **Data Engineering:** processamento em chunks, otimização de memória, transformação em Parquet;
 - **Data Analysis:** Pandas, feature engineering, Análise Exploratória de Dados;
 - **Machine Learning:** modelo de classificação, ensemble models, otimização de hiperparâmetros;
 - **Avaliação do modelo:** ROC-AUC, F1-score, teste de vários cenários de classificação;
@@ -130,10 +222,19 @@ Nesse cenário, performou melhor o modelo CatBoost com target T3, cenário que e
 ## Decisões técnicas
 
 - Por que utilizar Parquet?
-Parquet é um formato que otimiza armazenamento de big data, tornando arquivos de dados até 5x menores e aumentando em até 10x a velocidade de leitura.
+Parquet é um formato que otimiza armazenamento de big data, tendo diminuído o tempo de leitura do dataset em 96,8% (de 312s para 9,9s).
 
 - Por que modelos *ensemble*?
 Modelos *ensemble* baseados em árvores conseguem lidar bem com relações não-lineares.
+
+- Por que o CatBoost com o target T3?
+Dos quatro modelos, a RandomForest demonstrou o pior desempenho em todos os cenários investigados.
+
+CatBoost, LightGBM e XGBoost desempenharam de forma equivalente, sendo que os F1-Scores do modelo baseline do 
+
+XGBoost apresentou uma variação brusca de valores quando treinado com o target que envolvia mais de uma disciplina, tornando-o menos confiável que os outros.
+
+Entre o CatBoost  e o LightGBM, o desempenho de ambos é bastante equiparável, mas optou-se pelo CatBoost pela performance um pouco superior na eficiência em classificar os perfis STEM de acordo com o target T3. Para validar esse cenário, a escolha do modelo ocorreu após uma rodada de tuning de hiperparâmetros com a biblioteca Optuna.
 
 - Por que SHAP?
 Modelos de Machine Learning em árvore podem não ter sua explicabilidade tão clara, o que não responderia a pergunta do projeto (fatores socioeconômicos afetam desempenho em exatas?). A biblioteca SHAP contém ferramentas que, unindo teoria dos jogos a Machine Learning, fornecem a explicabilidade necessária para entender a contribuição das variáveis nas predições.
