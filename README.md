@@ -236,6 +236,8 @@ XGBoost apresentou uma variação brusca de valores quando treinado com o target
 
 Entre o CatBoost  e o LightGBM, o desempenho de ambos é bastante equiparável, mas optou-se pelo CatBoost pela performance um pouco superior na eficiência em classificar os perfis STEM de acordo com o target T3. Para validar esse cenário, a escolha do modelo ocorreu após uma rodada de tuning de hiperparâmetros com a biblioteca Optuna.
 
+![curva-roc-auc](imgs/figura11.png)
+
 - Por que SHAP?
 Modelos de Machine Learning em árvore podem não ter sua explicabilidade tão clara, o que não responderia a pergunta do projeto (fatores socioeconômicos afetam desempenho em exatas?). A biblioteca SHAP contém ferramentas que, unindo teoria dos jogos a Machine Learning, fornecem a explicabilidade necessária para entender a contribuição das variáveis nas predições.
 
