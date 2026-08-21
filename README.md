@@ -222,23 +222,28 @@ Nesse cenário, performou melhor o modelo CatBoost com target T3, cenário que e
 ## Decisões técnicas
 
 - Por que utilizar Parquet?
+  
 Parquet é um formato que otimiza armazenamento de big data, tendo diminuído o tempo de leitura do dataset em 96,8% (de 312s para 9,9s).
 
 - Por que modelos *ensemble*?
+
 Modelos *ensemble* baseados em árvores conseguem lidar bem com relações não-lineares.
 
 - Por que o CatBoost com o target T3?
+
 Dos quatro modelos, a RandomForest demonstrou o pior desempenho em todos os cenários investigados.
 
-CatBoost, LightGBM e XGBoost desempenharam de forma equivalente, sendo que os F1-Scores do modelo baseline do 
+CatBoost, LightGBM e XGBoost desempenharam de forma equivalente, sendo que os F1-Scores do modelo baseline do XGBoost apresentou uma variação brusca de valores quando treinado com o target que envolvia mais de uma disciplina, tornando-o menos confiável que os outros.
 
-XGBoost apresentou uma variação brusca de valores quando treinado com o target que envolvia mais de uma disciplina, tornando-o menos confiável que os outros.
-
-Entre o CatBoost  e o LightGBM, o desempenho de ambos é bastante equiparável, mas optou-se pelo CatBoost pela performance um pouco superior na eficiência em classificar os perfis STEM de acordo com o target T3. Para validar esse cenário, a escolha do modelo ocorreu após uma rodada de tuning de hiperparâmetros com a biblioteca Optuna.
+Entre o CatBoost  e o LightGBM, o desempenho de ambos é bastante equiparável, mas optou-se pelo CatBoost pela performance um pouco superior em relação à classificação de variáveis categóricas. Para validar esse cenário, a escolha do modelo ocorreu após uma rodada de tuning de hiperparâmetros com a biblioteca Optuna.
+![f1-score-e-curva-roc-auc-inicial](imgs/figura10.png)
+*É possível ver através do F1-Score a instabilidade do modelo baseado em XGBoost, que é bem mais inconstante na previsão dos targets*
 
 ![curva-roc-auc](imgs/figura11.png)
+*É possível observar o desempenho semelhante entre o CatBoost e o LightGBM através do valor da curva ROC-AUC antes e depois do tuning de hiperparâmetros*
 
 - Por que SHAP?
+  
 Modelos de Machine Learning em árvore podem não ter sua explicabilidade tão clara, o que não responderia a pergunta do projeto (fatores socioeconômicos afetam desempenho em exatas?). A biblioteca SHAP contém ferramentas que, unindo teoria dos jogos a Machine Learning, fornecem a explicabilidade necessária para entender a contribuição das variáveis nas predições.
 
 ## Stack técnica
