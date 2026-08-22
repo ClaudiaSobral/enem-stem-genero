@@ -236,7 +236,7 @@ Dos quatro modelos, a RandomForest demonstrou o pior desempenho em todos os cen�
 CatBoost, LightGBM e XGBoost desempenharam de forma equivalente, sendo que os F1-Scores do modelo baseline do XGBoost apresentou uma variação brusca de valores quando treinado com o target que envolvia mais de uma disciplina, tornando-o menos confiável que os outros.
 
 Entre o CatBoost  e o LightGBM, o desempenho de ambos é bastante equiparável, mas optou-se pelo CatBoost pela performance um pouco superior em relação à classificação de variáveis categóricas. Para validar esse cenário, a escolha do modelo ocorreu após uma rodada de tuning de hiperparâmetros com a biblioteca Optuna.
-![f1-score-e-curva-roc-auc-inicial](imgs/figura10.png)
+![f1-score-e-curva-roc-auc-inicial](imgs/figura12.png)
 *É possível ver através do F1-Score a instabilidade do modelo baseado em XGBoost, que é bem mais inconstante na previsão dos targets*
 
 ![curva-roc-auc](imgs/figura11.png)
